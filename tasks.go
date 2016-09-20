@@ -16,6 +16,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/golang/glog"
+
 	"github.com/garyburd/redigo/redis"
 	"github.com/go-sql-driver/mysql"
 	"github.com/gocql/gocql"
@@ -44,6 +46,7 @@ type ShellTaskConfig struct {
 	Env               map[string]string         `json:"env"`
 	Shell             string                    `json:"shell"`
 	Commands          []*ShellTaskConfigCommand `json:"commands"`
+	Output            string                    `json:"output"`
 	SingleResult      *int                      `json:"single_result"`
 	singleResultIndex int                       `json:"-"`
 }
@@ -52,6 +55,7 @@ type ShellTaskConfig struct {
 Validate validates config
 */
 func (s *ShellTaskConfig) Validate() (err error) {
+  // glog.Errorf("Bla:%s:", s)
 	if len(s.Commands) == 0 {
 		return errors.New("please provide at least one command")
 	}
@@ -96,10 +100,14 @@ func NewShellTaskConfig() *ShellTaskConfig {
 Factory for ShellTask
 */
 func ShellTaskFactory(server *Server, taskconfig *TaskConfig, ec *EndpointConfig) (tasks []Tasker, err error) {
+  // glog.Errorf("Bla:1:%s:", taskconfig.Config)
+  // glog.Errorf("Bla:2:%s:", ec)
 	config := NewShellTaskConfig()
+  // glog.Errorf("Bla:3a:%s:", config)
 	if err = json.Unmarshal(taskconfig.Config, config); err != nil {
 		return
 	}
+  // glog.Errorf("Bla:3:%s:", config)
 
 	if err = config.Validate(); err != nil {
 		return
@@ -185,13 +193,50 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
 	Append:
 		results = append(results, cmdresp.StripStatusData())
 	}
+  // var (
+	// 	err       error
+	// 	output    string
+  // )
+  //
+	// if output, err = Interpolate(s.Config.Output, data); err != nil {
+	// 	return response.Error(err).Status(http.StatusInternalServerError)
+	// }
 
-	// single result
-	if s.Config.singleResultIndex != -1 {
-		response.Result(results[s.Config.singleResultIndex])
+	// raw body
+  // glog.Errorf("Bla:1:%s:", s.Config.Output)
+  // glog.Errorf("Bla:2:%s:", s.Config)
+
+	//if strings.TrimSpace(strings.ToLower(output)) == "raw" {
+	if strings.TrimSpace(strings.ToLower(s.Config.Output)) == "raw" {
+    // glog.Errorf("Bla:3:")
+    var (
+       temp_result string
+    )
+    for _, result := range results {
+      temp_result := temp_result + result.data["result"]
+      glog.Errorf("Bla:4:%s", result)
+    }
+    glog.Errorf("Bla:5:%s", temp_result)
+		response.Raw(results[0].data["result"])
 	} else {
-		response.Result(results)
-	}
+    // single result
+    if s.Config.singleResultIndex != -1 {
+      response.Result(results[s.Config.singleResultIndex])
+    } else {
+      response.Result(results)
+    }
+  }
+
+	// // single result
+	// if s.Config.singleResultIndex != -1 {
+	// 	response.Result(results[s.Config.singleResultIndex])
+	// } else {
+	// 	//response.Result(results)
+	// 	//response.Raw("foo")
+	// 	//response.Raw(results[0])
+	// //if message, ok := r.data["message"]; ok {
+	// 	response.Raw(results[0].data["result"])
+	// }
 
 	return
 }
