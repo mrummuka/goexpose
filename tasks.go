@@ -213,7 +213,7 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
        temp_result string
     )
     for _, result := range results {
-      temp_result := temp_result + result.data["result"]
+      // temp_result := temp_result + result.data["result"]
       glog.Errorf("Bla:4:%s", result)
     }
     glog.Errorf("Bla:5:%s", temp_result)
