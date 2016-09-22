@@ -103,6 +103,8 @@ func ShellTaskFactory(server *Server, taskconfig *TaskConfig, ec *EndpointConfig
   // glog.Errorf("Bla:1:%s:", taskconfig.Config)
   // glog.Errorf("Bla:2:%s:", ec)
   glog.Errorf("Bla:8: hello world")
+  glog.Errorf("bla bla")
+  glog.Errorf("fooooooooooo")
 	config := NewShellTaskConfig()
   // glog.Errorf("Bla:3a:%s:", config)
 	if err = json.Unmarshal(taskconfig.Config, config); err != nil {

@@ -13,12 +13,15 @@ import (
 	"os"
 
 	"github.com/golang/glog"
-	"github.com/nasoym/goexpose"
+	// "github.com/nasoym/goexpose"
+	"../../"
 )
 
 func main() {
 	configVar := flag.String("config", "config.json", "Configuration file location")
 	formatVar := flag.String("format", "json", "Configuration file format. (json, yaml)")
+
+  glog.Errorf("foobar")
 
 	// Parse command line flags
 	flag.Parse()
