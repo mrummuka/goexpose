@@ -102,6 +102,7 @@ Factory for ShellTask
 func ShellTaskFactory(server *Server, taskconfig *TaskConfig, ec *EndpointConfig) (tasks []Tasker, err error) {
   // glog.Errorf("Bla:1:%s:", taskconfig.Config)
   // glog.Errorf("Bla:2:%s:", ec)
+  glog.Errorf("Bla:8: hello world")
 	config := NewShellTaskConfig()
   // glog.Errorf("Bla:3a:%s:", config)
 	if err = json.Unmarshal(taskconfig.Config, config); err != nil {
@@ -207,6 +208,7 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
   // glog.Errorf("Bla:2:%s:", s.Config)
 
 	//if strings.TrimSpace(strings.ToLower(output)) == "raw" {
+  glog.Errorf("Bla:6:%s", s.Config.Output)
 	if strings.TrimSpace(strings.ToLower(s.Config.Output)) == "raw" {
     // glog.Errorf("Bla:3:")
     var (
