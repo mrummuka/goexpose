@@ -12,7 +12,7 @@
             "output":"raw",
             "commands": [
               {
-                "command": "date"
+                "command": "date +%F"
               }
             ]
           }
