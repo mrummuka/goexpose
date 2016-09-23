@@ -30,3 +30,5 @@ _testmain.go
 cmd/goexpose/goexpose
 
 run.sh
+
+goexpose
