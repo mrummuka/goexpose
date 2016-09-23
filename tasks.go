@@ -217,11 +217,13 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
        temp_result string
     )
     for _, result := range results {
-      // temp_result := temp_result + result.data["result"]
+      temp_result += result.data["result"].(string) + "\n"
       glog.Errorf("Bla:4:%s", result)
     }
     glog.Errorf("Bla:5:%s", temp_result)
-		response.Raw(results[0].data["result"])
+    // temp_result = results[0].data["result"].(string)
+		// response.Raw(results[0].data["result"])
+		response.Raw(temp_result)
 	} else {
     // single result
     if s.Config.singleResultIndex != -1 {

@@ -4,6 +4,41 @@
   "pretty_json": true,
   "endpoints": [
     {
+      "path": "/",
+      "methods": {
+        "GET": {
+          "type": "shell",
+          "config": {
+            "output":"raw",
+            "commands": [
+              {
+                "command": "date +%F | sed 's/^/AA-/g' ; echo"
+              },
+              {
+                "command": "pwd"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "/env",
+      "methods": {
+        "GET": {
+          "type": "shell",
+          "config": {
+            "output":"raw",
+            "commands": [
+              {
+                "command": "env"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
       "path": "/hello",
       "methods": {
         "GET": {
@@ -12,7 +47,7 @@
             "output":"raw",
             "commands": [
               {
-                "command": "date +%F"
+                "command": "date +%F | sed 's/^/AAA/g'"
               }
             ]
           }
