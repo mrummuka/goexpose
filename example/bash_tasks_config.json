@@ -39,6 +39,41 @@
       }
     },
     {
+      "path": "/body/{bla:.*}",
+      "methods": {
+        "POST": {
+          "query_params": {
+              "params": [{
+                  "name": "aaa",
+                  "regexp": "^.*$",
+                  "default": ""
+              }]
+          },                
+          "type": "shell",
+          "config": {
+            "output":"raw",
+            "commands": [
+              {
+                "command": "echo 'url>{{.url}}<'"
+              },
+              {
+                "command": "echo 'query>{{.query}}<'"
+              },
+              {
+                "command": "echo 'request >{{.request}}<'"
+              },
+              {
+                "command": "echo 'request method >{{.request.method}}<'"
+              },
+              {
+                "command": "echo 'request body>{{.request.body}}<'"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
       "path": "/hello",
       "methods": {
         "GET": {
