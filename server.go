@@ -12,8 +12,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gorilla/mux"
 	"github.com/golang/glog"
+	"github.com/gorilla/mux"
 )
 
 var (
@@ -214,11 +214,12 @@ func (s *Server) Handle(task Tasker, authorizers Authorizers, ec *EndpointConfig
 
 		// read request body
 		var body = ""
-    glog.Errorf("Bla:body:%s:", r.Body)
 		if r.Body != nil {
-			if b, err := ioutil.ReadAll(r.Body); err != nil {
-				body = string(b)
+			b, err := ioutil.ReadAll(r.Body)
+			if err != nil {
+				panic(err)
 			}
+			body = string(b)
 		}
 
 		/*
