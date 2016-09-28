@@ -1,9 +1,9 @@
 package goexpose
 
 import (
-	"testing"
 	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
+	"testing"
 )
 
 func TestResponse(t *testing.T) {

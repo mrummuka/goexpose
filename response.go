@@ -275,7 +275,7 @@ func (r *Response) StripStatusData() *Response {
 
 /*
 Updates stripped status data
- */
+*/
 func (r *Response) UpdateStatusData() *Response {
 	return r.Status(r.status)
 }

@@ -20,12 +20,12 @@ const (
 
 /*
 RequesterSetFunc is callback function to be called in Set method.
- */
+*/
 type RequesterSetFunc func(r *Requester)
 
 /*
 NewRequester returns new requester instance
- */
+*/
 func NewRequester(funcs ...RequesterSetFunc) (result *Requester) {
 	result = &Requester{}
 	result.Set(WithTimeout(DEFAULT_TIMEOUT))

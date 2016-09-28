@@ -100,7 +100,7 @@ func Format(body string, f string) (result interface{}, format string, err error
 
 /*
 
-*/
+ */
 func HasFormat(format, id string) bool {
 	for _, part := range strings.Split(format, formatsdelimiter) {
 		if part == id {
@@ -112,7 +112,7 @@ func HasFormat(format, id string) bool {
 
 /*
 
-*/
+ */
 func AddFormat(format, id string) (result string) {
 
 	for _, part := range strings.Split(format, formatsdelimiter) {

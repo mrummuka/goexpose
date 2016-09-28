@@ -7,5 +7,5 @@ you don't open doors to shell injection.
 Goexpose supports authorization system (right now only basic auth is supported).
 Goexpose can be run on https so if you combine https with strong password, you should
 be not vulnerable.
- */
+*/
 package goexpose
