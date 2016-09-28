@@ -16,8 +16,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/golang/glog"
-
 	"github.com/garyburd/redigo/redis"
 	"github.com/go-sql-driver/mysql"
 	"github.com/gocql/gocql"
@@ -55,7 +53,6 @@ type ShellTaskConfig struct {
 Validate validates config
 */
 func (s *ShellTaskConfig) Validate() (err error) {
-  // glog.Errorf("Bla:%s:", s)
 	if len(s.Commands) == 0 {
 		return errors.New("please provide at least one command")
 	}
@@ -100,17 +97,10 @@ func NewShellTaskConfig() *ShellTaskConfig {
 Factory for ShellTask
 */
 func ShellTaskFactory(server *Server, taskconfig *TaskConfig, ec *EndpointConfig) (tasks []Tasker, err error) {
-  // glog.Errorf("Bla:1:%s:", taskconfig.Config)
-  // glog.Errorf("Bla:2:%s:", ec)
-  glog.Errorf("Bla:8: hello world")
-  glog.Errorf("bla bla")
-  glog.Errorf("fooooooooooo")
 	config := NewShellTaskConfig()
-  // glog.Errorf("Bla:3a:%s:", config)
 	if err = json.Unmarshal(taskconfig.Config, config); err != nil {
 		return
 	}
-  // glog.Errorf("Bla:3:%s:", config)
 
 	if err = config.Validate(); err != nil {
 		return
@@ -196,42 +186,24 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
 	Append:
 		results = append(results, cmdresp.StripStatusData())
 	}
-  // var (
-	// 	err       error
-	// 	output    string
-  // )
-  //
-	// if output, err = Interpolate(s.Config.Output, data); err != nil {
-	// 	return response.Error(err).Status(http.StatusInternalServerError)
-	// }
-
-	// raw body
-  // glog.Errorf("Bla:1:%s:", s.Config.Output)
-  // glog.Errorf("Bla:2:%s:", s.Config)
 
 	//if strings.TrimSpace(strings.ToLower(output)) == "raw" {
-  glog.Errorf("Bla:6:%s", s.Config.Output)
 	if strings.TrimSpace(strings.ToLower(s.Config.Output)) == "raw" {
-    // glog.Errorf("Bla:3:")
-    var (
-       temp_result string
-    )
-    for _, result := range results {
-      temp_result += result.data["result"].(string) + "\n"
-      glog.Errorf("Bla:4:%s", result)
-    }
-    glog.Errorf("Bla:5:%s", temp_result)
-    // temp_result = results[0].data["result"].(string)
-		// response.Raw(results[0].data["result"])
+		var (
+			temp_result string
+		)
+		for _, result := range results {
+			temp_result += result.data["result"].(string) + "\n"
+		}
 		response.Raw(temp_result)
 	} else {
-    // single result
-    if s.Config.singleResultIndex != -1 {
-      response.Result(results[s.Config.singleResultIndex])
-    } else {
-      response.Result(results)
-    }
-  }
+		// single result
+		if s.Config.singleResultIndex != -1 {
+			response.Result(results[s.Config.singleResultIndex])
+		} else {
+			response.Result(results)
+		}
+	}
 
 	// // single result
 	// if s.Config.singleResultIndex != -1 {
