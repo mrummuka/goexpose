@@ -21,8 +21,6 @@ func main() {
 	configVar := flag.String("config", "config.json", "Configuration file location")
 	formatVar := flag.String("format", "json", "Configuration file format. (json, yaml)")
 
-  glog.Errorf("foobar")
-
 	// Parse command line flags
 	flag.Parse()
 
