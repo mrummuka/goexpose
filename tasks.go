@@ -16,6 +16,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/golang/glog"
 	"github.com/garyburd/redigo/redis"
 	"github.com/go-sql-driver/mysql"
 	"github.com/gocql/gocql"
@@ -187,7 +188,6 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
 		results = append(results, cmdresp.StripStatusData())
 	}
 
-	//if strings.TrimSpace(strings.ToLower(output)) == "raw" {
 	if strings.TrimSpace(strings.ToLower(s.Config.Output)) == "raw" {
 		var (
 			temp_result string
@@ -195,6 +195,7 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
 		for _, result := range results {
 			temp_result += result.data["result"].(string) + "\n"
 		}
+    glog.Info("response: " + temp_result)
 		response.Raw(temp_result)
 	} else {
 		// single result
@@ -204,17 +205,6 @@ func (s *ShellTask) Run(r *http.Request, data map[string]interface{}) (response 
 			response.Result(results)
 		}
 	}
-
-	// // single result
-	// if s.Config.singleResultIndex != -1 {
-	// 	response.Result(results[s.Config.singleResultIndex])
-	// } else {
-	// 	//response.Result(results)
-	// 	//response.Raw("foo")
-	// 	//response.Raw(results[0])
-	// //if message, ok := r.data["message"]; ok {
-	// 	response.Raw(results[0].data["result"])
-	// }
 
 	return
 }
