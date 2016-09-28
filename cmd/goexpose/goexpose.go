@@ -13,8 +13,8 @@ import (
 	"os"
 
 	"github.com/golang/glog"
-	// "github.com/nasoym/goexpose"
-	"../../"
+	"github.com/nasoym/goexpose"
+	// "../../"
 )
 
 func main() {
