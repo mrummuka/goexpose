@@ -236,7 +236,7 @@ func (s *Server) Handle(task Tasker, authorizers Authorizers, ec *EndpointConfig
 			},
 		}
 
-    glog.Infof("request on url: %s" + string(params["url"]))
+    glog.Infof("request on url: %s", string(params["url"]))
 
 		// reload environment every request?
 		if s.Config.ReloadEnv {
