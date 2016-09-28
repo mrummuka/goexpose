@@ -236,6 +236,8 @@ func (s *Server) Handle(task Tasker, authorizers Authorizers, ec *EndpointConfig
 			},
 		}
 
+    glog.Info("request on url: " + params["url"])
+
 		// reload environment every request?
 		if s.Config.ReloadEnv {
 			params["env"] = s.GetEnv()
