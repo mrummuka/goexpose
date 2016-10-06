@@ -11,14 +11,6 @@
       }
     },
     {
-      "path": "/info",
-      "methods": {
-        "GET": {
-          "type": "info"
-        }
-      }
-    },
-    {
       "path": "/file",
       "methods": {
         "GET": {
