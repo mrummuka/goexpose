@@ -73,7 +73,7 @@
       }
     },
     {
-      "path": "/hello",
+      "path": "/stderr",
       "methods": {
         "GET": {
           "type": "shell",
@@ -81,7 +81,23 @@
             "output":"raw",
             "commands": [
               {
-                "command": "date +%F | sed 's/^/AAA/g'"
+                "command": "echo EEE >&2; echo FFF"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "/hello/{foo:.*}",
+      "methods": {
+        "GET": {
+          "type": "shell",
+          "config": {
+            "output":"raw",
+            "commands": [
+              {
+                "command": "echo \"- {{.url.foo}} -\""
               }
             ]
           }
