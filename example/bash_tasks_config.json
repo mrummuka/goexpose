@@ -11,7 +11,7 @@
             "output":"raw",
             "commands": [
               {
-                "command": "date +%F | sed 's/^/AA-/g' ; echo"
+                "command": "echo 'ddd' >&2; date +%F | sed 's/^/AA-/g' ; echo"
               },
               {
                 "command": "pwd"
@@ -56,10 +56,16 @@
                 "command": "echo 'url>{{.url}}<'"
               },
               {
+                "command": "echo 'url>{{.url.bla}}<'"
+              },
+              {
                 "command": "echo 'query>{{.query}}<'"
               },
               {
                 "command": "echo 'request >{{.request}}<'"
+              },
+              {
+                "command": "echo \"11: {{.request.body}}\""
               },
               {
                 "command": "echo 'request method >{{.request.method}}<'"
@@ -106,3 +112,6 @@
     }
   ]
 }
+
+
+
